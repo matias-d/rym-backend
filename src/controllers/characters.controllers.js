@@ -19,7 +19,7 @@ async function getCharacter (req, res) {
       where: {
         id: characterId
       },
-      attributes: ['id', 'name', 'image', 'favorite']
+      attributes: ['id', 'name', 'status', 'species', 'gender', 'image', 'favorite']
     })
 
     const isFavoritesFound = await Favorite.findOne({
@@ -35,8 +35,8 @@ async function getCharacter (req, res) {
     }
 
     // Almaceno el nuevo personaje y lo muestro
-    const { id, name, image, favorite } = await Character.create(newCharacter)
-    return res.status(200).json({ id, name, image, favorite })
+    const { id, name, image, status, gender, species, favorite } = await Character.create(newCharacter)
+    return res.status(200).json({ id, name, status, species, gender, image, favorite })
   } catch (error) {
     res.status(400).json({ error: error.message })
   }
