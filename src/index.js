@@ -8,9 +8,10 @@ app.use(morgan('dev'))
 
 app.get('/', (req, res) => {
   res.status(200).json({
-    charactersbyId: 'http://localhost:3001/character/1',
-    charactersDetail: 'http://localhost:3001/character/detail/1',
-    charactersFavorites: 'http://localhost:3001/characters/favorites'
+    getAllCharacters: 'https://rym-backend-production.up.railway.app/character/all/characters',
+    charactersbyId: 'https://rym-backend-production.up.railway.app/character/yourId',
+    charactersDetail: 'https://rym-backend-production.up.railway.app/character/detail/yourId',
+    charactersFavorites: 'https://rym-backend-production.up.railway.app/favorites'
   })
 })
 
