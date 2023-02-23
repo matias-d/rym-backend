@@ -2,8 +2,6 @@
  ______________________________________________________________________________________________________________________________________
 
 - #### :pushpin: Backend of RaM-app, Using express, express route, sequalize as orm and Postgres as database
-.
-- #### [ Preview Page ](https://matias-d.github.io/RaM-app/) :page_facing_up:
 
 - #### [ Frontend RaM ](https://github.com/matias-d/RaM-app) :page_facing_up:
 
