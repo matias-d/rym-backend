@@ -1,10 +1,10 @@
-const { Character } = require('../database/index.js')
+const { Character, Favorite } = require('../database/index.js')
 const getNewCharacter = require('../utils/getNewCharacter.js')
 
 async function getCharacter (req, res) {
   const { characterId } = req.params
 
-  if (!characterId || isNaN(characterId)) {
+  if (isNaN(characterId)) {
     return res.status(400).json({ error: 'No se encontraron parametros o no es valido' })
   }
 
@@ -22,9 +22,18 @@ async function getCharacter (req, res) {
       attributes: ['id', 'name', 'image', 'favorite']
     })
 
+    const isFavoritesFound = await Favorite.findOne({
+      where: { id: characterId }, attributes: ['favorite']
+    })
+
     if (isCharacterFound) {
       return res.status(200).json(isCharacterFound)
     }
+
+    if (isFavoritesFound) {
+      newCharacter.favorite = true
+    }
+
     // Almaceno el nuevo personaje y lo muestro
     const { id, name, image, favorite } = await Character.create(newCharacter)
     return res.status(200).json({ id, name, image, favorite })
@@ -64,6 +73,15 @@ async function getCharacterDetail (req, res) {
   }
 }
 
+async function getAllCharacters (req, res) {
+  try {
+    const result = await Character.findAll()
+    res.status(200).json(result)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
+
 async function deleteCharacter (req, res) {
   const { characterId } = req.params
 
@@ -86,36 +104,9 @@ async function deleteCharacter (req, res) {
   }
 }
 
-async function toggleFavorite (req, res) {
-  const { characterId } = req.params
-
-  if (!characterId || isNaN(characterId)) {
-    return res.status(400).json({ error: 'No se encontraron parametros o no es valido' })
-  }
-
-  if (Number(characterId) > 826) {
-    return res.status(400).json({ error: 'No hay mas personajes que buscar!' })
-  }
-
-  try {
-    const isCharacterFound = await Character.findOne({
-      where: { id: characterId }
-    })
-
-    if (!isCharacterFound) {
-      return res.status(400).json({ error: 'Personaje no encontrado' })
-    }
-
-    await isCharacterFound.update({ favorite: !isCharacterFound.favorite })
-    res.status(201).json({ message: 'Personaje actualizado' })
-  } catch (error) {
-    res.status(400).json({ error: error.message })
-  }
-}
-
 module.exports = {
   getCharacter,
   getCharacterDetail,
-  toggleFavorite,
+  getAllCharacters,
   deleteCharacter
 }

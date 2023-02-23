@@ -10,7 +10,8 @@ async function getNewCharacter (id) {
     gender: API_RESULT.gender,
     origin: API_RESULT.origin.name,
     location: API_RESULT.location.name,
-    image: API_RESULT.image
+    image: API_RESULT.image,
+    favorite: false
   }
   return newCharacter
 }
