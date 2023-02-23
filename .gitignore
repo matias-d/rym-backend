@@ -1,0 +1,47 @@
+# Archivos de respaldo y temporales
+*~
+*.bak
+*.swp
+*.tmp
+
+# Logs y archivos generados por el sistema
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.pid
+*.seed
+*.pid.lock
+
+# Dependencias y módulos de node.js
+node_modules/
+
+# Archivos compilados y generados
+dist/
+build/
+*.class
+*.war
+*.jar
+
+# Credenciales y archivos sensibles
+.env
+.env.*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.git-credentials
+.gitconfig
+*.pem
+*.key
+*.pub
+
+# Directorios de IDEs
+.idea/
+.vscode/
+*.iml
+
+# Otros
+.DS_Store
+Thumbs.db
